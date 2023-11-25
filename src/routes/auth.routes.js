@@ -4,8 +4,11 @@ import {
   login,
   logout,
   profile,
+  resgisterAdm,
+  loginAdm,
+  profileAdm,
 } from "../controllers/auth.controller.js";
-import { authRequired } from "../middlewares/validateToken.js";
+import { authRequired, authRequiredAdm } from "../middlewares/validateToken.js";
 
 const router = Router();
 
@@ -16,5 +19,13 @@ router.post("/login", login);
 router.post("/logout", logout);
 
 router.get("/profile", authRequired, profile);
+
+router.post("/admin/login", loginAdm);
+
+router.post("/admin/register", authRequiredAdm, resgisterAdm);
+
+router.post("/admin/logout", authRequiredAdm, logout);
+
+router.get("/admin/profile", authRequiredAdm, profileAdm);
 
 export default router;
