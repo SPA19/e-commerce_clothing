@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.input{
+  border-width: 0px;
+}
+
+.card-body{
+  padding: 1.5rem;
+}
