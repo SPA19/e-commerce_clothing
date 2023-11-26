@@ -2,7 +2,7 @@ import Product from "../models/products.model.js";
 import Category from "../models/categories.model.js";
 
 export const getProducts = async (req, res) => {
-  const products = await Product.find();
+  const products = await Product.find().populate("category");
   res.status(200).json(products);
 };
 
@@ -11,7 +11,8 @@ export const createProduct = async (req, res) => {
 
   const categories = await Category.findOne({ name: category });
 
-  if(!categories) return res.status(404).json({message:"category not found"})
+  if (!categories)
+    return res.status(404).json({ message: "category not found" });
 
   const newProduct = new Product({
     title,
@@ -20,10 +21,10 @@ export const createProduct = async (req, res) => {
     ref,
     size,
     color,
-    category:categories._id,
+    category: categories._id,
   });
   const productSaved = await newProduct.save();
-  res.json(productSaved);
+  res.json({ message: "Successfully created", data: productSaved });
 };
 
 export const createCategory = async (req, res) => {
@@ -33,30 +34,32 @@ export const createCategory = async (req, res) => {
     name,
   });
   const categorySaved = await newCategory.save();
-  res.json(categorySaved);
+  res.json({
+    message: `the category ${categorySaved.name} was created successfully`,
+  });
 };
 
-export const getCategories = async(req,res)=> {
+export const getCategories = async (req, res) => {
   const categories = await Category.find();
   res.status(200).json(categories);
-}
+};
 
 export const getProduct = async (req, res) => {
-  const product = await Product.findById(req.params.id);
-  if (!product) return res.status(404).json({ message: "product not found" });
+  const product = await Product.findById(req.params.id).populate("category");
+  if (!product) return res.status(404).json({ message: "Product not found" });
   res.status(200).json(product);
 };
 
 export const updateProduct = async (req, res) => {
-  const product = await Product.findByIdAndDelete(req.params.id);
-  if (!product) return res.status(404).json({ message: "product not found" });
-  res.status(200).json(product);
-};
-
-export const deleteProduct = async (req, res) => {
   const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
   });
-  if (!product) return res.status(404).json({ message: "product not found" });
-  res.status(200).json(product);
+  if (!product) return res.status(404).json({ message: "Product not found" });
+  res.status(200).json({ message: "Successfully update", data:product });
+};
+
+export const deleteProduct = async (req, res) => {
+  const product = await Product.findByIdAndDelete(req.params.id);
+  if (!product) return res.status(404).json({ message: "Product not found" });
+  res.status(200).json({ message: "Successfully deleted" });
 };
