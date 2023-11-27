@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import { loginUserRequest } from "../api/auth";
 import { useAuth } from "../context/AuthContext";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -18,11 +17,10 @@ const LoginUser = () => {
 
   const handlChangeAdm = () => {
     setChangeAdmin(!changeAdmin);
-    navigate("/admin/login");
   };
 
   const handleCreateCount = () => {
-    navigate("/register");
+    navigate("/login");
   };
 
   const onSubmit = handleSubmit((values) => {

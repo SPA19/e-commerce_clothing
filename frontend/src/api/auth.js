@@ -19,3 +19,5 @@ export const logoutRequest = () => axios.post(`${API}/admin/logout`);
 export const getAllProductsRequest = () => axios.get(`${API}/products`);
 
 export const getProductByid = (product) => axios.get(`${API}/products/${product}`);
+
+export const createProductRequest = (product) => axios.post(`${API}/products`, product)

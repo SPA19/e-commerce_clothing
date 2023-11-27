@@ -16,22 +16,19 @@ const ProductsPage = () => {
     })();
   }, []);
 
-  const handleChangePage = (id) => {
-    console.log(id);
-  };
 
   return (
     <div>
       <Navbar />
-      <div className="flex">
+      <div className="grid grid-cols-3 w-full">
         {dataProduct.products?.map((product) => (
           <div
             key={product._id}
-            className="card card-side bg-base-100 shadow-xl border mt-10 mx-4 w-1/3"
+            className="card card-side bg-base-100 shadow-xl border mt-10 mx-4"
           >
             <figure>
               <img
-                className="w-60 h-full"
+                className="w-[20rem] h-full"
                 src={`../../public/assets/imgProduct/${product.ref}.jpg`}
                 alt={product.title}
               />
@@ -44,7 +41,7 @@ const ProductsPage = () => {
               <p>Ref: {product.ref}</p>
               <p>Categoria: {product.category.name}</p>
               <div className="card-actions justify-end">
-                <ModalDetail ident={product._id}/>
+                {/* <ModalDetail ident={product._id} /> */}
                 {/* <button
                   className="btn btn-primary"
                   onClick={() => handleChangePage(product._id)}

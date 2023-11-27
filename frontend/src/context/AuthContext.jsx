@@ -1,5 +1,9 @@
 import { createContext, useState, useContext } from "react";
-import { loginUserRequest } from "../api/auth";
+import {
+  createProductRequest,
+  loginAdminRequest,
+  loginUserRequest,
+} from "../api/auth";
 
 export const AuthContext = createContext();
 
@@ -13,6 +17,7 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [product, setProduct] = useState(null);
   const [isAuthenticated, setisAuthenticated] = useState(false);
   const [changeAdmin, setChangeAdmin] = useState(false);
 
@@ -26,18 +31,34 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const signupAdm = async (user) => {
+    try {
+      const res = await loginAdminRequest(user);
+      setUser(res.data);
+      setisAuthenticated(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const productNew = async (product) => {
+    try {
+      const res = await createProductRequest(product);
+      setProduct(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const data = {
+    signupAdm,
     signup,
+    productNew,
     user,
     isAuthenticated,
-    setisAuthenticated, 
+    setisAuthenticated,
     changeAdmin,
     setChangeAdmin,
   };
 
-  return (
-  <AuthContext.Provider value={data}>
-    {children}
-  </AuthContext.Provider>
-  )
+  return <AuthContext.Provider value={data}>{children}</AuthContext.Provider>;
 };

@@ -4,6 +4,7 @@ import LoginPage from "./pages/LoginPage";
 import { AuthProvider } from "./context/AuthContext";
 import Navbar from "./components/Navbar";
 import ProductsPage from "./pages/ProductsPage";
+import AdminPage from "./pages/AdminPage";
 
 function App() {
   return (
@@ -12,15 +13,12 @@ function App() {
         <Routes>
           <Route path="/home" element={<LoginPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/admin/login" element={<h1>Login Admin</h1>} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/products" element={<ProductsPage/>} />
+          <Route path="/products" element={<ProductsPage />} />
+          <Route path="/admin/profile" element={<AdminPage />} />
+          <Route path="/add-product" element={<h1>Create Product</h1>} />
         </Routes>
       </AuthProvider>
-      <Routes>
-        <Route path="/admin/register" element={<h1>Register Admin</h1>} />
-        <Route path="/add-product" element={<h1>Create Product</h1>} />
-      </Routes>
     </BrowserRouter>
   );
 }
