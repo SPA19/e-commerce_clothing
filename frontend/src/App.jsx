@@ -16,7 +16,6 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/admin/profile" element={<AdminPage />} />
-          <Route path="/add-product" element={<h1>Create Product</h1>} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>
