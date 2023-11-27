@@ -1,9 +1,63 @@
-import React from 'react'
+import { useEffect, useState } from "react";
+import { getAllProductsRequest } from "../api/auth";
+import Navbar from "../components/Navbar";
+import ModalDetail from "../components/ModalDetail";
 
 const ProductsPage = () => {
-  return (
-    <div>ProductsPage</div>
-  )
-}
+  const [dataProduct, setDataProduct] = useState({});
 
-export default ProductsPage
+  useEffect(() => {
+    (async () => {
+      const response = await getAllProductsRequest();
+      setDataProduct({
+        ...dataProduct,
+        products: response.data,
+      });
+    })();
+  }, []);
+
+  const handleChangePage = (id) => {
+    console.log(id);
+  };
+
+  return (
+    <div>
+      <Navbar />
+      <div className="flex">
+        {dataProduct.products?.map((product) => (
+          <div
+            key={product._id}
+            className="card card-side bg-base-100 shadow-xl border mt-10 mx-4 w-1/3"
+          >
+            <figure>
+              <img
+                className="w-60 h-full"
+                src={`../../public/assets/imgProduct/${product.ref}.jpg`}
+                alt={product.title}
+              />
+            </figure>
+            <div className="card-body">
+              <h2 className="card-title">{product.title}</h2>
+              <p>Precio: ${product.price}</p>
+              <p>Color: {product.color}</p>
+              <p>Talla: {product.size}</p>
+              <p>Ref: {product.ref}</p>
+              <p>Categoria: {product.category.name}</p>
+              <div className="card-actions justify-end">
+                <ModalDetail ident={product._id}/>
+                {/* <button
+                  className="btn btn-primary"
+                  onClick={() => handleChangePage(product._id)}
+                >
+                  Detalles
+                </button> */}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default ProductsPage;

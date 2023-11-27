@@ -1,6 +1,7 @@
 import Product from "../models/products.model.js";
 import Category from "../models/categories.model.js";
 
+
 export const getProducts = async (req, res) => {
   const products = await Product.find().populate("category");
   res.status(200).json(products);

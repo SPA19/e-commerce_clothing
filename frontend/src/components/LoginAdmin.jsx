@@ -1,9 +1,13 @@
-import React from 'react'
+import { useEffect } from "react";
+import { useAuth } from "../context/AuthContext";
 
 const LoginAdmin = () => {
-  return (
-    <div>LoginAdmin</div>
-  )
-}
+  const { changeAdmin, setChangeAdmin } = useAuth();
+  useEffect(() => {
+    setChangeAdmin(!changeAdmin);
+  }, []);
 
-export default LoginAdmin
+  return <div>LoginAdmin</div>;
+};
+
+export default LoginAdmin;
