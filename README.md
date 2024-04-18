@@ -1,3 +1,2 @@
 # e-commerce_clothing
-prueba tecnica tienda virtual ropa
-
+here you will find a virtual store where you will find products such as clothing
